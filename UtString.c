@@ -24,6 +24,17 @@ BOOL StrEqL(char *s1, char *s2, usize len) {
     return 1;
 }
 
+BOOL StrEq(char *s1, char *s2) {
+    usize i = 0;
+    while ('\0' != s1[i] && '\0' != s2[i]) {
+        if (s1[i] != s2[i]) {
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
 usize StrLen(char *str) {
     usize i = 0;
     while ('\0' != str[i]) {
