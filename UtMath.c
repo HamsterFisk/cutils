@@ -1,7 +1,4 @@
-#ifndef UT_MATH_C
-#define UT_MATH_C
-
-#include "UtTypes.h"
+#include "UtMath.h"
 
 
 f64 MPowF64(f64 val, f64 exp) {
@@ -12,5 +9,3 @@ f64 MPowF64(f64 val, f64 exp) {
 
     return ret;
 }
-
-#endif

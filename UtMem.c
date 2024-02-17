@@ -1,7 +1,4 @@
-#ifndef UT_MEM_C
-#define UT_MEM_C
-
-#include "UtTypes.h"
+#include "UtMem.h"
 
 void ZeroMem(void *mem, usize bytes) {
     for (usize i = 0; i < bytes; i++) {
@@ -9,9 +6,9 @@ void ZeroMem(void *mem, usize bytes) {
     }
 }
 
-void CopyMem(u8 *dest, u8 *src, usize count) {
+void CopyMem(void *dest, void *src, usize count) {
     for (usize i = 0; i < count; i++) {
-        dest[i] = src[i];
+        ((u8 *)dest)[i] = ((u8 *)src)[i];
     }
 }
 
@@ -20,5 +17,3 @@ void MemSet(void *mem, u8 val, usize bytes) {
         ((u8 *)mem)[i] = val;
     }
 }
-
-#endif

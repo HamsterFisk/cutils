@@ -1,10 +1,7 @@
-#ifndef UT_STRING_C
-#define UT_STRING_C
-
 #include "UtAlloc.h"
-#include "UtMem.c"
+#include "UtMem.h"
 #include "stdarg.h"
-#include "UtMath.c"
+#include "UtMath.h"
 
 
 char *StrMake(AL *al, usize len) {
@@ -344,5 +341,3 @@ char *FormatString(AL *al, char *fmt, ...) {
 #undef PRD_u64_ID
 #undef PRD_f32_ID
 #undef PRD_f64_ID
-
-#endif

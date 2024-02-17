@@ -1,6 +1,3 @@
-#ifndef UT_ALLOC_C
-#define UT_ALLOC_C
-
 #include "UtAlloc.h"
 #include "UtMem.c"
 
@@ -70,5 +67,3 @@ AL AlMakeScratchBuffer(AL *allocator, usize capacity) {
 
     return al;
 }
-
-#endif
