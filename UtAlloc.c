@@ -67,3 +67,21 @@ AL AlMakeScratchBuffer(AL *allocator, usize capacity) {
 
     return al;
 }
+
+AL AlMakeScratchBufferRaw(void *data, usize capacity) {
+    AL al = {0};
+
+    ScratchBuffer *sb = (ScratchBuffer *)data;
+    sb->cap = capacity;
+    sb->ap = 0;
+    sb->mem = (u8 *)data + sizeof(ScratchBuffer);
+    sb->alloc = NULL;
+    
+    ZeroMem(sb->mem, capacity);
+
+    al.alloc = ScratchBufferAlloc;
+    al.free = FreeStub;
+    al.data = data;
+
+    return al;
+}

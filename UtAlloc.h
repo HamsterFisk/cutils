@@ -34,5 +34,6 @@ typedef struct {
 void *ScratchBufferAlloc(void *data, usize size);
 
 AL AlMakeScratchBuffer(AL *allocator, usize capacity);
+AL AlMakeScratchBufferRaw(void *data, usize capacity);
 
 #endif
