@@ -70,6 +70,40 @@ char *SubStr(AL *al, char *str, usize start, usize len) {
     StrCopyL(substr, str + start, len);
     return substr;
 }
+char **SplitStr(AL *al, char *str, char prd, usize *splitCount) {
+    usize i = 0;
+    while ('\0' != str[i]) {
+        if (prd == str[i]) {
+            *splitCount += 1;
+        }
+        i++;
+    }
+    *splitCount += 1;
+
+    char **splits = Alloc(al, sizeof(char *) * (*splitCount));
+    if (NULL == splits) {
+        return NULL;
+    }
+    
+    i = 0;
+    usize splitStart = 0;
+    usize curSplit = 0;
+    while ('\0' != str[i]) {
+        if (prd == str[i]) {
+            splits[curSplit] = SubStr(al, str, splitStart, i - splitStart);
+
+            splitStart = i + 1;
+            curSplit++;
+        }
+        i++;
+    }
+
+    if (i > splitStart) {
+        splits[curSplit] = SubStr(al, str, splitStart, i - splitStart);
+    }
+
+    return splits;
+}
 
 char *MergeStrs(AL *al, char **strs, usize strsCount) {
     char *res = 0;
