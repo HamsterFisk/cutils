@@ -85,3 +85,39 @@ AL AlMakeScratchBufferRaw(void *data, usize capacity) {
 
     return al;
 }
+
+void *ArenaAlloc(void *data, usize size) {
+    MemoryArena *ma = (MemoryArena *)data;
+    if (ma->ap + size >= ma->cap) {
+        return NULL;
+    }
+
+    ma->ap += size;
+
+    return ma->mem + ma->ap - size;
+}
+void ClearArena(MemoryArena *ma) {
+    ma->ap = 0;
+}
+
+AL AlMakeArena(AL *allocator, usize capacity) {
+    u8 *alData = Alloc(allocator, capacity + sizeof(MemoryArena));
+    AL al = {0};
+
+    MemoryArena *ma = (MemoryArena *)alData;
+    ma->cap = capacity;
+    ma->ap = 0;
+    ma->mem = (u8 *)alData + sizeof(MemoryArena);
+    ma->alloc = allocator;
+
+    al.alloc = ArenaAlloc;
+    al.free = FreeStub;
+    al.data = alData;
+
+    return al;
+}
+
+
+
+
+

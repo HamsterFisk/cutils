@@ -36,4 +36,15 @@ void *ScratchBufferAlloc(void *data, usize size);
 AL AlMakeScratchBuffer(AL *allocator, usize capacity);
 AL AlMakeScratchBufferRaw(void *data, usize capacity);
 
+typedef struct {
+    usize ap;
+    usize cap;
+    u8 *mem;
+    AL *alloc;
+} MemoryArena;
+
+void *ArenaAlloc(void *data, usize size);
+
+AL AlMakeArena(AL *allocator, usize capacity);
+
 #endif
