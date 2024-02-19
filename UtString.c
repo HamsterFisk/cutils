@@ -351,11 +351,18 @@ char *FormatString(AL *al, char *fmt, ...) {
 
             rp += prdL;
             lastSplit = rp;
+
+            continue;
         }
 
         rp++;
     }
     va_end(args);
+
+    if (rp - lastSplit > 0) {
+        strBuilder[strCount] = SubStr(al, fmt, lastSplit, rp - lastSplit);
+        strCount++;
+    }
 
     usize fullSize = 0;
     for (usize i = 0; i < strCount; i++) {
