@@ -3,7 +3,6 @@
 #include "stdarg.h"
 #include "UtMath.h"
 
-
 char *StrMake(AL *al, usize len) {
     return Alloc(al, sizeof(char) * (len + 1));
 }
@@ -13,7 +12,7 @@ BOOL StrEqL(char *s1, char *s2, usize len) {
         if (s1[i] != s2[i]) {
             return 0;
         }
-        if ('\0' == s1[i] && '\0' == s2[i]) {
+        if ('\0' == s1[i] || '\0' == s2[i]) {
             break;
         }
     }
@@ -23,9 +22,13 @@ BOOL StrEqL(char *s1, char *s2, usize len) {
 
 BOOL StrEq(char *s1, char *s2) {
     usize i = 0;
-    while ('\0' != s1[i] && '\0' != s2[i]) {
+    while (1) {
         if (s1[i] != s2[i]) {
             return 0;
+        }
+
+        if ('\0' == s1[i] || '\0' == s2[i]) {
+            break;
         }
         i++;
     }
