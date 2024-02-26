@@ -135,20 +135,20 @@ char *MergeStrs(AL *al, char **strs, usize strsCount) {
 
 usize DigitsInUInt(u64 val) {
     usize c = 0;
-    while (0 != val) {
+    do {
         val /= 10;
         c++;
-    }
+    } while (0 != val);
 
     return c;
 }
 
 usize DigitsInInt(i64 val) {
     usize c = 0;
-    while (0 != val) {
+    do {
         val /= 10;
         c++;
-    }
+    } while(0 != val);
 
     return c;
 }
