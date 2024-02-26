@@ -4,7 +4,11 @@
 #include "UtMath.h"
 
 char *StrMake(AL *al, usize len) {
-    return Alloc(al, sizeof(char) * (len + 1));
+    char *str = Alloc(al, sizeof(char) * (len + 1));
+    MemSet(str, 1, len + 1);
+    str[len] = '\0';
+
+    return str;
 }
 
 BOOL StrEqL(char *s1, char *s2, usize len) {
