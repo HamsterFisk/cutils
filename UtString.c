@@ -166,13 +166,13 @@ char *StrFromUInt(AL *al, u64 val) {
     usize c = sl -1;
     u64 v = 0;
 
-    while (0 != val) {
+    do {
         v = val % 10;
         val /= 10;
 
         out[c] = ASCII_NR_OFFSET + v;
         c--;
-    }
+    } while (0 != val);
 
     return out;
 }
@@ -198,13 +198,13 @@ char *StrFromInt(AL *al, i64 val) {
     usize c = sl -1;
     i64 v = 0;
 
-    while (0 != val) {
+    do {
         v = val % 10;
         val /= 10;
 
         out[c] = ASCII_NR_OFFSET + v;
         c--;
-    }
+    } while (0 != val);
 
     return out;
 }
