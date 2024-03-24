@@ -3,6 +3,10 @@
 
 #include "UtTypes.h"
 
+#define Kilobyte(n) (n * 1000)
+#define Megabyte(n) (Kilobyte(n) * 1000)
+#define Gigabyte(n) (Megabyte(n) * 1000)
+
 f64 MPowF64(f64 val, f64 exp);
 
 #endif
