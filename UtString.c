@@ -82,7 +82,7 @@ char **SplitStr(AL *al, char *str, char *prd, usize *splitCount) {
 
     usize i = 0;
     while ('\0' != str[i]) {
-        if (StrEq(prd, (str + i))) {
+        if (StrEqL(prd, (str + i), prdLen)) {
             *splitCount += 1;
             i += prdLen;
 
@@ -101,7 +101,7 @@ char **SplitStr(AL *al, char *str, char *prd, usize *splitCount) {
     usize splitStart = 0;
     usize curSplit = 0;
     while ('\0' != str[i]) {
-        if (StrEq(prd, (str + i))) {
+        if (StrEqL(prd, (str + i), prdLen)) {
             splits[curSplit] = SubStr(al, str, splitStart, i - splitStart);
 
             splitStart = i + 1;
