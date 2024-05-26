@@ -77,11 +77,16 @@ char *SubStr(AL *al, char *str, usize start, usize len) {
     StrCopyL(substr, str + start, len);
     return substr;
 }
-char **SplitStr(AL *al, char *str, char prd, usize *splitCount) {
+char **SplitStr(AL *al, char *str, char *prd, usize *splitCount) {
+    usize prdLen = StrLen(prd);
+
     usize i = 0;
     while ('\0' != str[i]) {
-        if (prd == str[i]) {
+        if (StrEq(prd, (str + i))) {
             *splitCount += 1;
+            i += prdLen;
+
+            continue;
         }
         i++;
     }
@@ -96,11 +101,14 @@ char **SplitStr(AL *al, char *str, char prd, usize *splitCount) {
     usize splitStart = 0;
     usize curSplit = 0;
     while ('\0' != str[i]) {
-        if (prd == str[i]) {
+        if (StrEq(prd, (str + i))) {
             splits[curSplit] = SubStr(al, str, splitStart, i - splitStart);
 
             splitStart = i + 1;
             curSplit++;
+
+            i += prdLen;
+            continue;
         }
         i++;
     }
