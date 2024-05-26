@@ -78,6 +78,7 @@ char *SubStr(AL *al, char *str, usize start, usize len) {
     return substr;
 }
 char **SplitStr(AL *al, char *str, char *prd, usize *splitCount) {
+    *splitCount = 0;
     usize prdLen = StrLen(prd);
 
     usize i = 0;
