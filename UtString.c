@@ -105,10 +105,10 @@ char **SplitStr(AL *al, char *str, char *prd, usize *splitCount) {
         if (StrEqL(prd, (str + i), prdLen)) {
             splits[curSplit] = SubStr(al, str, splitStart, i - splitStart);
 
-            splitStart = i + 1;
             curSplit++;
-
             i += prdLen;
+            splitStart = i;
+
             continue;
         }
         i++;
