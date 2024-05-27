@@ -185,8 +185,56 @@ i64 StrToIntL(char *str, usize len) {
 }
 
 i64 StrToInt(char *str) {
-    usize len = StrLen(str);
-    return StrToIntL(str, len);
+    return StrToIntL(str, StrLen(str));
+}
+
+f64 StrToFpL(char *str, usize len) {
+    i8 sign = 1;
+    if ('-' == str[0]) {
+        sign = -1;
+        str += 1;
+        len -= 1;
+    }
+
+    i64 wholeNr = 0;
+    i64 decimalNr = 0;
+    usize wholeNrLen = len;
+    usize decimalNrLen = 0;
+
+    for (usize i = 0; i < len; i++) {
+        if ('.' == str[i]) {
+            wholeNrLen = i;
+            break;
+        }
+    }
+
+    for (usize i = 0; i < wholeNrLen; i++) {
+        i64 next = (str[i] - ASCII_NR_OFFSET) * (i64)MPowF64(10.0, (wholeNrLen - i -1));
+        wholeNr += next;
+    }
+
+    if (wholeNrLen != len) {
+        decimalNrLen = len - wholeNrLen - 1;
+        str += wholeNrLen + 1;
+
+        for (usize i = 0; i < decimalNrLen; i++) {
+            i64 next = (str[i] - ASCII_NR_OFFSET) * (i64)MPowF64(10.0, (decimalNrLen - i -1));
+            decimalNr += next;
+        }
+    }
+
+    f64 val = (f64)wholeNr;
+
+    if (0 < decimalNrLen) {
+        val += (f64)decimalNr / MPowF64(10.0, decimalNrLen);
+    }
+    val *= sign;
+
+    return val;
+}
+
+f64 StrToFp(char *str) {
+    return StrToFpL(str, StrLen(str));
 }
 
 char *StrFromUInt(AL *al, u64 val) {
