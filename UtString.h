@@ -14,6 +14,8 @@ char **SplitStr(AL *al, char *str, char prd, usize *splitCount);
 char *MergeStrs(AL *al, char **strs, usize strsCount);
 usize DigitsInUInt(u64 val);
 usize DigitsInInt(i64 val);
+i64 StrToIntL(char *str, usize len);
+i64 StrToInt(char *str);
 char *StrFromUInt(AL *al, u64 val);
 char *StrFromInt(AL *al, i64 val);
 char *StrFromFp(AL *al, f64 val);

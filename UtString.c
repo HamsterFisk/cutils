@@ -164,6 +164,31 @@ usize DigitsInInt(i64 val) {
 
 #define ASCII_NR_OFFSET 48
 
+i64 StrToIntL(char *str, usize len) {
+    i64 val = 0;
+    i8 sign = 1;
+
+    if ('-' == str[0]) {
+        sign = -1;
+        str += 1;
+        len -= 1;
+    }
+
+    for (usize i = 0; i < len; i++) {
+        i64 next = (str[i] - ASCII_NR_OFFSET) * (i64)MPowF64(10.0, (len - i -1));
+        val += next;
+    }
+
+    val *= sign;
+
+    return val;
+}
+
+i64 StrToInt(char *str) {
+    usize len = StrLen(str);
+    return StrToIntL(str, len);
+}
+
 char *StrFromUInt(AL *al, u64 val) {
     usize sl = DigitsInUInt(val);
     if (0 >= sl) {
