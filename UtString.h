@@ -10,7 +10,7 @@ usize StrLen(char *str);
 usize StrCopy(char *dest, char *src);
 void StrCopyL(char *dest, char *src, usize len);
 char *SubStr(AL *al, char *str, usize start, usize len);
-char **SplitStr(AL *al, char *str, char prd, usize *splitCount);
+char **SplitStr(AL *al, char *str, char *prd, usize *splitCount);
 char *MergeStrs(AL *al, char **strs, usize strsCount);
 usize DigitsInUInt(u64 val);
 usize DigitsInInt(i64 val);
