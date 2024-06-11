@@ -322,6 +322,21 @@ char *BinStrFromUInt(AL *al, u64 val) {
     return out;
 }
 
+u64 BinStrToUIntL(char *str, usize len) {
+    u64 out = 0;
+    u64 powerOfTwo = len * 2;
+    for (usize i = 0; i < len; i++) {
+        out += (str[i] - ASCII_NR_OFFSET) * powerOfTwo;
+        powerOfTwo /= 2;
+    }
+
+    return out;
+}
+
+u64 BinStrToUInt(char *str) {
+    return BinStrToUIntL(str, StrLen(str));
+}
+
 char *StrFromUInt(AL *al, u64 val) {
     usize sl = DigitsInUInt(val);
     if (0 >= sl) {
