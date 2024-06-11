@@ -237,6 +237,75 @@ f64 StrToFp(char *str) {
     return StrToFpL(str, StrLen(str));
 }
 
+/*
+    #1 Find the highest power of 16 that fits inside val
+    #2 Add token that is the nr of it that occures in the nr
+    #3 subtract the full value from val
+    #4 repeat until unit column
+*/
+char HexifyNr(u64 nr) {
+    char ret = 'G';
+    switch (nr) {
+        case 10: {
+            ret = 'A';
+        } break;
+        case 11: {
+            ret = 'B';
+        } break;
+        case 12: {
+            ret = 'C';
+        } break;
+        case 13: {
+            ret = 'D';
+        } break;
+        case 14: {
+            ret = 'E';
+        } break;
+        case 15: {
+            ret = 'F';
+        } break;
+        default: {
+            ret = nr + ASCII_NR_OFFSET;
+        }
+    }
+
+    return ret;
+}
+
+// Max 20 char long output
+#define HEX_MAX_DIGITS 20
+char *HexStrFromUInt(AL *al, u64 val) {
+    char str[HEX_MAX_DIGITS] = {0};
+    usize strLen = 0;
+    while (1) {
+        unsigned int acm = 1;
+        do {
+            acm *= 16;
+        } while (acm * 16 < val);
+
+        unsigned int nTimes = val / acm;
+        if (0 == nTimes) {
+            str[strLen] = HexifyNr(val);
+            strLen += 1;
+            break;
+        }
+
+        str[strLen] = HexifyNr(nTimes);
+        strLen += 1;
+
+        if (HEX_MAX_DIGITS <= strLen) {
+            break;
+        }
+
+        val -= acm * nTimes;
+    };
+    char *ret = StrMake(al, strLen);
+    CopyMem(ret, str, strLen);
+
+    return ret;
+}
+#undef HEX_MAX_DIGITS
+
 char *StrFromUInt(AL *al, u64 val) {
     usize sl = DigitsInUInt(val);
     if (0 >= sl) {
