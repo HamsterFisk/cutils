@@ -300,6 +300,28 @@ char *HexStrFromUInt(AL *al, u64 val) {
 }
 #undef HEX_MAX_DIGITS
 
+char *BinStrFromUInt(AL *al, u64 val) {
+    u64 powerOfTwo = 1;
+    while (powerOfTwo * 2 <= val) {
+        powerOfTwo *= 2;
+    }
+
+    char *out = StrMake(al, powerOfTwo / 2);
+    char *wp = out;
+
+    while (powerOfTwo > 0) {
+        u64 nTimes = val / powerOfTwo;
+
+        *wp = nTimes + ASCII_NR_OFFSET;
+        wp += 1;
+
+        val -= powerOfTwo * nTimes;
+        powerOfTwo /= 2;
+    }
+
+    return out;
+}
+
 char *StrFromUInt(AL *al, u64 val) {
     usize sl = DigitsInUInt(val);
     if (0 >= sl) {
