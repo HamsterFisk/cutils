@@ -278,12 +278,12 @@ char *HexStrFromUInt(AL *al, u64 val) {
     char str[HEX_MAX_DIGITS] = {0};
     usize strLen = 0;
     while (1) {
-        unsigned int acm = 1;
+        u64 acm = 1;
         do {
             acm *= 16;
         } while (acm * 16 < val);
 
-        unsigned int nTimes = val / acm;
+        u64 nTimes = val / acm;
         if (0 == nTimes) {
             str[strLen] = HexifyNr(val);
             strLen += 1;
