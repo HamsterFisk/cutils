@@ -18,6 +18,7 @@ i64 StrToIntL(char *str, usize len);
 i64 StrToInt(char *str);
 f64 StrToFp(char *str);
 f64 StrToFpL(char *str, usize len);
+char *HexStrFromUInt(u64 val);
 char *StrFromUInt(AL *al, u64 val);
 char *StrFromInt(AL *al, i64 val);
 char *StrFromFp(AL *al, f64 val);

@@ -237,12 +237,6 @@ f64 StrToFp(char *str) {
     return StrToFpL(str, StrLen(str));
 }
 
-/*
-    #1 Find the highest power of 16 that fits inside val
-    #2 Add token that is the nr of it that occures in the nr
-    #3 subtract the full value from val
-    #4 repeat until unit column
-*/
 char HexifyNr(u64 nr) {
     char ret = 'G';
     switch (nr) {
