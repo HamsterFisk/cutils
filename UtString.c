@@ -163,6 +163,8 @@ usize DigitsInInt(i64 val) {
 }
 
 #define ASCII_NR_OFFSET 48
+#define ASCII_LETTERS_LOWER_START 97
+#define ASCII_LETTERS_UPPER_START 65
 
 i64 StrToIntL(char *str, usize len) {
     i64 val = 0;
@@ -266,6 +268,39 @@ char HexifyNr(u64 nr) {
     return ret;
 }
 
+u64 HexCharToUInt(char ch) {
+    if (ch >= ASCII_LETTERS_LOWER_START) {
+        ch -= ASCII_LETTERS_LOWER_START - ASCII_LETTERS_UPPER_START;
+    }
+
+    u64 ret = 1337;
+    switch (ch) {
+        case 'A': {
+            ret = 10;
+        } break;
+        case 'B': {
+            ret = 11;
+        } break;
+        case 'C': {
+            ret = 12;
+        } break;
+        case 'D': {
+            ret = 13;
+        } break;
+        case 'E': {
+            ret = 14;
+        } break;
+        case 'F': {
+            ret = 15;
+        } break;
+        default: {
+            ret = ch - ASCII_NR_OFFSET;
+        }
+    }
+
+    return ret;
+}
+
 // Max 20 char long output
 #define HEX_MAX_DIGITS 20
 char *HexStrFromUInt(AL *al, u64 val) {
@@ -335,6 +370,26 @@ u64 BinStrToUIntL(char *str, usize len) {
 
 u64 BinStrToUInt(char *str) {
     return BinStrToUIntL(str, StrLen(str));
+}
+
+u64 HexStrToUIntL(char *str, usize len) {
+    u64 out = 0;
+
+    usize i = 0;
+    do {
+        len -= 1;
+        u64 col = MPowU64(16, len);
+        u64 val = HexCharToUInt(str[i]);
+        out += col * val;
+
+        i++;
+    } while(len > 0);
+
+    return out;
+}
+
+u64 HexStrToUInt(char *str) {
+    return HexStrToUIntL(str, StrLen(str));
 }
 
 char *StrFromUInt(AL *al, u64 val) {

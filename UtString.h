@@ -20,6 +20,8 @@ f64 StrToFp(char *str);
 f64 StrToFpL(char *str, usize len);
 u64 BinStrToUIntL(char *str, usize len);
 u64 BinStrToUInt(char *str);
+u64 HexStrToUIntL(char *str);
+u64 HexStrToUInt(char *str);
 char *HexStrFromUInt(u64 val);
 char *BinStrFromUInt(AL *al, u64 val);
 char *StrFromUInt(AL *al, u64 val);
